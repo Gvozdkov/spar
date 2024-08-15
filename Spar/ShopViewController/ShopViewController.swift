@@ -51,6 +51,7 @@ final class ShopViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         settingsViewController()
+        viewModel.fetchData()
     }
     
     private func settingsViewController() {

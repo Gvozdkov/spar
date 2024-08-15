@@ -11,6 +11,9 @@
 		E7123D112C6D35370053DFF4 /* ProductModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7123D102C6D35370053DFF4 /* ProductModel.swift */; };
 		E7123D132C6D3C510053DFF4 /* ShopViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7123D122C6D3C510053DFF4 /* ShopViewModel.swift */; };
 		E7123D152C6D403E0053DFF4 /* LikeAndShoppingListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7123D142C6D403E0053DFF4 /* LikeAndShoppingListModel.swift */; };
+		E7123D1B2C6DD9DE0053DFF4 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7123D1A2C6DD9DE0053DFF4 /* NetworkManager.swift */; };
+		E7123D1E2C6DDA910053DFF4 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = E7123D1D2C6DDA910053DFF4 /* Alamofire */; };
+		E7123D202C6DDAD80053DFF4 /* NetworkURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7123D1F2C6DDAD80053DFF4 /* NetworkURL.swift */; };
 		E731C9952C677FFD00FA53A1 /* UniversalUIElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = E731C9942C677FFD00FA53A1 /* UniversalUIElements.swift */; };
 		E731C9972C69901200FA53A1 /* LikeButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E731C9962C69901200FA53A1 /* LikeButtonsView.swift */; };
 		E731C9992C6AC28E00FA53A1 /* CoutingsButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E731C9982C6AC28E00FA53A1 /* CoutingsButtonsView.swift */; };
@@ -27,6 +30,8 @@
 		E7123D102C6D35370053DFF4 /* ProductModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductModel.swift; sourceTree = "<group>"; };
 		E7123D122C6D3C510053DFF4 /* ShopViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopViewModel.swift; sourceTree = "<group>"; };
 		E7123D142C6D403E0053DFF4 /* LikeAndShoppingListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeAndShoppingListModel.swift; sourceTree = "<group>"; };
+		E7123D1A2C6DD9DE0053DFF4 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		E7123D1F2C6DDAD80053DFF4 /* NetworkURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkURL.swift; sourceTree = "<group>"; };
 		E731C9942C677FFD00FA53A1 /* UniversalUIElements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UniversalUIElements.swift; sourceTree = "<group>"; };
 		E731C9962C69901200FA53A1 /* LikeButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeButtonsView.swift; sourceTree = "<group>"; };
 		E731C9982C6AC28E00FA53A1 /* CoutingsButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoutingsButtonsView.swift; sourceTree = "<group>"; };
@@ -45,6 +50,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E7123D1E2C6DDA910053DFF4 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -90,6 +96,15 @@
 			path = ShopVCCell;
 			sourceTree = "<group>";
 		};
+		E7123D192C6DD9C90053DFF4 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				E7123D1A2C6DD9DE0053DFF4 /* NetworkManager.swift */,
+				E7123D1F2C6DDAD80053DFF4 /* NetworkURL.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
 		E78269E02C64EACA00041F4F = {
 			isa = PBXGroup;
 			children = (
@@ -111,6 +126,7 @@
 			children = (
 				E78269EC2C64EACA00041F4F /* AppDelegate.swift */,
 				E7123D172C6D413A0053DFF4 /* ShopViewController */,
+				E7123D192C6DD9C90053DFF4 /* Network */,
 				E7826A002C64EC7C00041F4F /* Helper */,
 				E78269F52C64EACE00041F4F /* Assets.xcassets */,
 				E78269F72C64EACE00041F4F /* LaunchScreen.storyboard */,
@@ -144,6 +160,9 @@
 			dependencies = (
 			);
 			name = Spar;
+			packageProductDependencies = (
+				E7123D1D2C6DDA910053DFF4 /* Alamofire */,
+			);
 			productName = Spar;
 			productReference = E78269E92C64EACA00041F4F /* Spar.app */;
 			productType = "com.apple.product-type.application";
@@ -172,6 +191,9 @@
 				Base,
 			);
 			mainGroup = E78269E02C64EACA00041F4F;
+			packageReferences = (
+				E7123D1C2C6DDA910053DFF4 /* XCRemoteSwiftPackageReference "Alamofire" */,
+			);
 			productRefGroup = E78269EA2C64EACA00041F4F /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -198,6 +220,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E7123D1B2C6DD9DE0053DFF4 /* NetworkManager.swift in Sources */,
 				E731C9972C69901200FA53A1 /* LikeButtonsView.swift in Sources */,
 				E78269F12C64EACA00041F4F /* ShopViewController.swift in Sources */,
 				E7826A022C64EC9000041F4F /* Colors.swift in Sources */,
@@ -206,6 +229,7 @@
 				E7123D112C6D35370053DFF4 /* ProductModel.swift in Sources */,
 				E731C9992C6AC28E00FA53A1 /* CoutingsButtonsView.swift in Sources */,
 				E7123D0E2C6CDA3A0053DFF4 /* UnitMeasurementView.swift in Sources */,
+				E7123D202C6DDAD80053DFF4 /* NetworkURL.swift in Sources */,
 				E7826A042C65123100041F4F /* GridCell.swift in Sources */,
 				E7123D152C6D403E0053DFF4 /* LikeAndShoppingListModel.swift in Sources */,
 				E731C9952C677FFD00FA53A1 /* UniversalUIElements.swift in Sources */,
@@ -431,6 +455,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		E7123D1C2C6DDA910053DFF4 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.9.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		E7123D1D2C6DDA910053DFF4 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E7123D1C2C6DDA910053DFF4 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = E78269E12C64EACA00041F4F /* Project object */;
 }

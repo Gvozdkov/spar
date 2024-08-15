@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		E7123D0E2C6CDA3A0053DFF4 /* UnitMeasurementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7123D0D2C6CDA390053DFF4 /* UnitMeasurementView.swift */; };
+		E7123D112C6D35370053DFF4 /* ProductModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7123D102C6D35370053DFF4 /* ProductModel.swift */; };
+		E7123D132C6D3C510053DFF4 /* ShopViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7123D122C6D3C510053DFF4 /* ShopViewModel.swift */; };
+		E7123D152C6D403E0053DFF4 /* LikeAndShoppingListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7123D142C6D403E0053DFF4 /* LikeAndShoppingListModel.swift */; };
 		E731C9952C677FFD00FA53A1 /* UniversalUIElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = E731C9942C677FFD00FA53A1 /* UniversalUIElements.swift */; };
 		E731C9972C69901200FA53A1 /* LikeButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E731C9962C69901200FA53A1 /* LikeButtonsView.swift */; };
 		E731C9992C6AC28E00FA53A1 /* CoutingsButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E731C9982C6AC28E00FA53A1 /* CoutingsButtonsView.swift */; };
@@ -21,6 +24,9 @@
 
 /* Begin PBXFileReference section */
 		E7123D0D2C6CDA390053DFF4 /* UnitMeasurementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitMeasurementView.swift; sourceTree = "<group>"; };
+		E7123D102C6D35370053DFF4 /* ProductModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductModel.swift; sourceTree = "<group>"; };
+		E7123D122C6D3C510053DFF4 /* ShopViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopViewModel.swift; sourceTree = "<group>"; };
+		E7123D142C6D403E0053DFF4 /* LikeAndShoppingListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeAndShoppingListModel.swift; sourceTree = "<group>"; };
 		E731C9942C677FFD00FA53A1 /* UniversalUIElements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UniversalUIElements.swift; sourceTree = "<group>"; };
 		E731C9962C69901200FA53A1 /* LikeButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeButtonsView.swift; sourceTree = "<group>"; };
 		E731C9982C6AC28E00FA53A1 /* CoutingsButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoutingsButtonsView.swift; sourceTree = "<group>"; };
@@ -56,6 +62,34 @@
 			path = UniversalUIElements;
 			sourceTree = "<group>";
 		};
+		E7123D162C6D41260053DFF4 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				E7123D102C6D35370053DFF4 /* ProductModel.swift */,
+				E7123D142C6D403E0053DFF4 /* LikeAndShoppingListModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		E7123D172C6D413A0053DFF4 /* ShopViewController */ = {
+			isa = PBXGroup;
+			children = (
+				E78269F02C64EACA00041F4F /* ShopViewController.swift */,
+				E7123D122C6D3C510053DFF4 /* ShopViewModel.swift */,
+				E7123D162C6D41260053DFF4 /* Models */,
+				E7123D182C6D41C80053DFF4 /* ShopVCCell */,
+			);
+			path = ShopViewController;
+			sourceTree = "<group>";
+		};
+		E7123D182C6D41C80053DFF4 /* ShopVCCell */ = {
+			isa = PBXGroup;
+			children = (
+				E7826A032C65123100041F4F /* GridCell.swift */,
+			);
+			path = ShopVCCell;
+			sourceTree = "<group>";
+		};
 		E78269E02C64EACA00041F4F = {
 			isa = PBXGroup;
 			children = (
@@ -76,8 +110,7 @@
 			isa = PBXGroup;
 			children = (
 				E78269EC2C64EACA00041F4F /* AppDelegate.swift */,
-				E78269F02C64EACA00041F4F /* ShopViewController.swift */,
-				E7826A032C65123100041F4F /* GridCell.swift */,
+				E7123D172C6D413A0053DFF4 /* ShopViewController */,
 				E7826A002C64EC7C00041F4F /* Helper */,
 				E78269F52C64EACE00041F4F /* Assets.xcassets */,
 				E78269F72C64EACE00041F4F /* LaunchScreen.storyboard */,
@@ -169,9 +202,12 @@
 				E78269F12C64EACA00041F4F /* ShopViewController.swift in Sources */,
 				E7826A022C64EC9000041F4F /* Colors.swift in Sources */,
 				E78269ED2C64EACA00041F4F /* AppDelegate.swift in Sources */,
+				E7123D132C6D3C510053DFF4 /* ShopViewModel.swift in Sources */,
+				E7123D112C6D35370053DFF4 /* ProductModel.swift in Sources */,
 				E731C9992C6AC28E00FA53A1 /* CoutingsButtonsView.swift in Sources */,
 				E7123D0E2C6CDA3A0053DFF4 /* UnitMeasurementView.swift in Sources */,
 				E7826A042C65123100041F4F /* GridCell.swift in Sources */,
+				E7123D152C6D403E0053DFF4 /* LikeAndShoppingListModel.swift in Sources */,
 				E731C9952C677FFD00FA53A1 /* UniversalUIElements.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

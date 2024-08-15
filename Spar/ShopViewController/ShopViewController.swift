@@ -8,11 +8,12 @@
 import UIKit
 
 final class ShopViewController: UIViewController {
+    private let viewModel = ShopViewModelL()
     
     private lazy var buttonCollection: UIButton = {
         let button = UIButton()
         button.layer.cornerRadius = 15
-        button.backgroundColor = Colors.grayButton
+        button.backgroundColor = Colors.lightGrayButton
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -32,10 +33,18 @@ final class ShopViewController: UIViewController {
     }()
     
     private lazy var shopCollection: UICollectionView = {
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        let layout = UICollectionViewFlowLayout()
+        layout.itemSize = CGSize(width: 168, height: 278)
+        layout.minimumLineSpacing = 5
+        layout.minimumInteritemSpacing = 5
+
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.isScrollEnabled = true
-        collectionView.backgroundColor = .clear
+        collectionView.backgroundColor = .lightText
+        collectionView.dataSource = self
+        collectionView.register(GridCell.self, forCellWithReuseIdentifier: GridCell.cellIdentifier)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.delegate = self
         return collectionView
     }()
     
@@ -69,11 +78,35 @@ final class ShopViewController: UIViewController {
             line.heightAnchor.constraint(equalToConstant: 0.5),
             
             shopCollection.topAnchor.constraint(equalTo: line.bottomAnchor),
-            shopCollection.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            shopCollection.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            shopCollection.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            shopCollection.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             shopCollection.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
     
 }
 
+// MARK: - extension UICollectionViewDataSource
+extension ShopViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        6
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GridCell.cellIdentifier, for: indexPath) as? GridCell {
+            
+            return cell
+        }
+        return UICollectionViewCell()
+    }
+
+}
+
+extension ShopViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        let totalCellWidth = 168 * 2
+        let totalSpacingWidth = 5
+        let leftInset = (collectionView.bounds.width - CGFloat(totalCellWidth + totalSpacingWidth)) / 2
+        return UIEdgeInsets(top: 9, left: leftInset, bottom: 8, right: leftInset)
+    }
+}

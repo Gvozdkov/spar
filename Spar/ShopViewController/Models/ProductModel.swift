@@ -8,7 +8,7 @@
 import Foundation
 
 struct ProductModel: Decodable {
-    let id: Float
+    let id: Int
     let name: String
     let countryOrigin: String
     let photo: String
@@ -16,7 +16,7 @@ struct ProductModel: Decodable {
     let comments: Int
     let discountedPrice: Float
     let oldPrice: Float
-    let unitMeasurement: Int // if 1 == шт else 2 == кг,
+    let unitMeasurement: Int
     let discount: Int
-    let promotionalProduct: Int // 1 - Цена по карте, 2 - новинка, 3 - удар по ценам
+    let promotionalProduct: Int
 }

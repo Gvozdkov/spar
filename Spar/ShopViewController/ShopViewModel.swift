@@ -8,12 +8,10 @@
 import Foundation
 
 final class ShopViewModelL {
-    private var products = [ProductModel]()
-    private var likeAndShoppingListProducts = [LikeAndShoppingListModel]()
+    var onDataLoaded: (() -> Void)?
     
-    init() {
-        // загрузка из сети
-    }
+    private(set) var products = [ProductModel]()
+    private var likeAndShoppingListProducts = [LikeAndShoppingListModel]()
     
     func fetchData() {
         guard let url = NetworkURL.mocProducts.url else {
@@ -28,21 +26,31 @@ final class ShopViewModelL {
                     let decoder = JSONDecoder()
                     let mokProducts = try decoder.decode([ProductModel].self, from: data)
                     self.products = mokProducts
-                    print(self.products)
-//                    self.dataCollectionUpdated?()
+                    //                    print(self.products)
+                    DispatchQueue.main.async {
+                        self.onDataLoaded?()
+                    }
                 } catch {
                     print("Error decoding data: \(error)")
                 }
- 
+                
             case .failure(let error):
                 print("Error network airRecommendationFeed \(error)")
-                
             }
         }
     }
     
     func numbersOfItem() -> Int {
         return products.count
+    }
+    
+    private func searchLikeAndShoppingList(id: Int) -> LikeAndShoppingListModel? {
+        for searchID in likeAndShoppingListProducts {
+            if searchID.id == id {
+                return searchID
+            }
+        }
+        return nil
     }
 }
 

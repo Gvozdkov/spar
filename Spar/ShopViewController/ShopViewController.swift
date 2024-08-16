@@ -51,6 +51,7 @@ final class ShopViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         settingsViewController()
+        reloadDataCollection()
         viewModel.fetchData()
     }
     
@@ -85,17 +86,26 @@ final class ShopViewController: UIViewController {
         ])
     }
     
+    private func reloadDataCollection() {
+        viewModel.onDataLoaded = { [weak self] in
+            DispatchQueue.main.async {
+                self?.shopCollection.reloadData()
+            }
+        }
+    }
+    
 }
 
 // MARK: - extension UICollectionViewDataSource
 extension ShopViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        6
+        return viewModel.products.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GridCell.cellIdentifier, for: indexPath) as? GridCell {
-            
+            let product = viewModel.products[indexPath.item]
+            cell.cellUpdate(product: product)
             return cell
         }
         return UICollectionViewCell()

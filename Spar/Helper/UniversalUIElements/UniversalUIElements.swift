@@ -182,10 +182,10 @@ class UniversalUIElements {
         return cartButton
     }
     
-    func createPromotionalView(_ text: String) -> UIView {
+    func createPromotionalView(color: UIColor, text: String) -> UIView {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = Colors.redPromotional
+        view.backgroundColor = color
         view.layer.cornerRadius = 6
         view.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMaxXMaxYCorner]
         
@@ -193,6 +193,7 @@ class UniversalUIElements {
                                 weight: .regular,
                                 textColor: .white)
         label.text = text
+        label.textColor = .white
         
         view.addSubview(label)
         NSLayoutConstraint.activate([

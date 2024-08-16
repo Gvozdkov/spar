@@ -13,7 +13,7 @@ class CoutingsButtonsView: UIView {
             return productWeightLabel.text
         }
         set {
-            productWeightLabel.text = newValue
+            productWeightLabel.text = (newValue ?? "") + "кг"
         }
     }
     
@@ -83,6 +83,7 @@ class CoutingsButtonsView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         constraintsSettingsView()
+        productWeightLabel.text = "0.1 кг"
     }
     
     required init?(coder: NSCoder) {
@@ -117,11 +118,11 @@ class CoutingsButtonsView: UIView {
         ])
     }
     
-    @objc func minusButtonTapped() {
+    @objc private func minusButtonTapped() {
         minusButtonAction?()
     }
     
-    @objc func plusButtonTapped() {
+    @objc private func plusButtonTapped() {
         plusButtonAction?()
     }
 }

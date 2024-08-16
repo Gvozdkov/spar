@@ -64,7 +64,7 @@ class LikeButtonsView: UIView {
         super.init(coder: coder)
     }
     
-    func constraintsSettingsView() {
+    private func constraintsSettingsView() {
         addSubview(butonStack)
 
            shoppingListButton.addSubview(shoppingListImage)

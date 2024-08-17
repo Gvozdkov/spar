@@ -264,11 +264,7 @@ final class GridCell: UICollectionViewCell {
         unitView.isHidden = true
         unitMeasurementView.isHidden = false
         coutingsButtonsView.isHidden = false
-        
-        NSLayoutConstraint.activate([
-        productImage.widthAnchor.constraint(equalToConstant: 168),
-        productImage.heightAnchor.constraint(equalToConstant: 148),
-        ])
+        animatioinsProfuct(widthAnchor: 168, heightAnchor: 148)
     }
     
     //поменять нейменг
@@ -297,21 +293,12 @@ final class GridCell: UICollectionViewCell {
             unitView.isHidden = false
             unitMeasurementView.isHidden = true
             coutingsButtonsView.isHidden = true
-            
-            NSLayoutConstraint.deactivate(productImage.constraints.filter { $0.firstAttribute == .width || $0.firstAttribute == .height })
-            
-            NSLayoutConstraint.activate([
-                productImage.widthAnchor.constraint(equalToConstant: 168),
-                productImage.heightAnchor.constraint(equalToConstant: 168)
-            ])
-            
-            self.layoutIfNeeded()
+            animatioinsProfuct(widthAnchor: 168, heightAnchor: 168)
         } else {
             productWeight -= 0.1
             productWeight = round(productWeight * 10) / 10.0
             coutingsButtonsView.productWeightText = String(productWeight)
         }
-       
     }
     
     private func satupPlusButtonCoutingsButtonsView() {
@@ -369,6 +356,17 @@ final class GridCell: UICollectionViewCell {
        }
     }
     
-
+    private func animatioinsProfuct(widthAnchor: CGFloat, heightAnchor: CGFloat) {
+        UIView.animate(withDuration: 0.5, animations: {
+               NSLayoutConstraint.deactivate(self.productImage.constraints.filter { $0.firstAttribute == .width || $0.firstAttribute == .height })
+               
+               NSLayoutConstraint.activate([
+                   self.productImage.widthAnchor.constraint(equalToConstant: widthAnchor),
+                   self.productImage.heightAnchor.constraint(equalToConstant: heightAnchor)
+               ])
+               self.layoutIfNeeded()
+           })
+        self.layoutIfNeeded()
+    }
 
 }

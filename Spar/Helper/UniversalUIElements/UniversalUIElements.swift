@@ -107,7 +107,6 @@ class UniversalUIElements {
         return image
     }
     
-    
     func createLabel(fontSize: CGFloat, weight: UIFont.Weight, textColor: UIColor) -> UILabel {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: fontSize, weight: weight)
@@ -202,6 +201,28 @@ class UniversalUIElements {
         ])
         
         return view
+    }
+    
+    // MARK: - Functions for updating cell components
+    func updateDiscountLabel(discountPrice: Int, discountLabel: UILabel) {
+        if discountPrice > 0 && discountPrice <= 100 {
+            discountLabel.text = String(discountPrice) + "%"
+        } else {
+            discountLabel.isHidden = false
+        }
+    }
+    
+    func animatioinsProfuct(imageView: UIImageView, widthAnchor: CGFloat, heightAnchor: CGFloat) {
+        UIView.animate(withDuration: 0.5, animations: {
+            NSLayoutConstraint.deactivate(imageView.constraints.filter { $0.firstAttribute == .width || $0.firstAttribute == .height })
+            
+            NSLayoutConstraint.activate([
+                imageView.widthAnchor.constraint(equalToConstant: widthAnchor),
+                imageView.heightAnchor.constraint(equalToConstant: heightAnchor)
+            ])
+            imageView.superview?.layoutIfNeeded()
+        })
+        imageView.superview?.layoutIfNeeded()
     }
     
     func maxLengthProductName(_ label: UILabel, _ text: String) {

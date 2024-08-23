@@ -107,7 +107,6 @@ class UniversalUIElements {
         return image
     }
     
-    
     func createLabel(fontSize: CGFloat, weight: UIFont.Weight, textColor: UIColor) -> UILabel {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: fontSize, weight: weight)
@@ -131,8 +130,6 @@ class UniversalUIElements {
                                     weight: .bold,
                                     textColor: .black)
         unitLabel.text = "кг"
-        
-        
         
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -202,6 +199,20 @@ class UniversalUIElements {
         ])
         
         return view
+    }
+
+    
+    func animatioinsProfuct(imageView: UIImageView, widthAnchor: CGFloat, heightAnchor: CGFloat) {
+        UIView.animate(withDuration: 0.5, animations: {
+            NSLayoutConstraint.deactivate(imageView.constraints.filter { $0.firstAttribute == .width || $0.firstAttribute == .height })
+            
+            NSLayoutConstraint.activate([
+                imageView.widthAnchor.constraint(equalToConstant: widthAnchor),
+                imageView.heightAnchor.constraint(equalToConstant: heightAnchor)
+            ])
+            imageView.superview?.layoutIfNeeded()
+        })
+        imageView.superview?.layoutIfNeeded()
     }
     
     func maxLengthProductName(_ label: UILabel, _ text: String) {

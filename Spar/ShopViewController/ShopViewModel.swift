@@ -26,7 +26,6 @@ final class ShopViewModelL {
                     let decoder = JSONDecoder()
                     let mokProducts = try decoder.decode([ProductModel].self, from: data)
                     self.products = mokProducts
-                    //                    print(self.products)
                     DispatchQueue.main.async {
                         self.onDataLoaded?()
                     }

@@ -131,8 +131,6 @@ class UniversalUIElements {
                                     textColor: .black)
         unitLabel.text = "кг"
         
-        
-        
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         
@@ -202,15 +200,7 @@ class UniversalUIElements {
         
         return view
     }
-    
-    // MARK: - Functions for updating cell components
-    func updateDiscountLabel(discountPrice: Int, discountLabel: UILabel) {
-        if discountPrice > 0 && discountPrice <= 100 {
-            discountLabel.text = String(discountPrice) + "%"
-        } else {
-            discountLabel.isHidden = false
-        }
-    }
+
     
     func animatioinsProfuct(imageView: UIImageView, widthAnchor: CGFloat, heightAnchor: CGFloat) {
         UIView.animate(withDuration: 0.5, animations: {

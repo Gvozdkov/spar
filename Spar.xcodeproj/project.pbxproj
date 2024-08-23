@@ -24,6 +24,7 @@
 		E78269F92C64EACE00041F4F /* Base in Resources */ = {isa = PBXBuildFile; fileRef = E78269F82C64EACE00041F4F /* Base */; };
 		E7826A022C64EC9000041F4F /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7826A012C64EC9000041F4F /* Colors.swift */; };
 		E7826A042C65123100041F4F /* GridCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7826A032C65123100041F4F /* GridCell.swift */; };
+		E788DC762C73A22400FF6783 /* UpdateUniversalUIElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = E788DC752C73A22400FF6783 /* UpdateUniversalUIElements.swift */; };
 		E79E62F22C6EECB400ACB66C /* CartButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E79E62F12C6EECB400ACB66C /* CartButtonView.swift */; };
 /* End PBXBuildFile section */
 
@@ -45,6 +46,7 @@
 		E78269FA2C64EACE00041F4F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E7826A012C64EC9000041F4F /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		E7826A032C65123100041F4F /* GridCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridCell.swift; sourceTree = "<group>"; };
+		E788DC752C73A22400FF6783 /* UpdateUniversalUIElements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateUniversalUIElements.swift; sourceTree = "<group>"; };
 		E79E62F12C6EECB400ACB66C /* CartButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartButtonView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -65,6 +67,7 @@
 			isa = PBXGroup;
 			children = (
 				E731C9942C677FFD00FA53A1 /* UniversalUIElements.swift */,
+				E788DC752C73A22400FF6783 /* UpdateUniversalUIElements.swift */,
 				E79E62F12C6EECB400ACB66C /* CartButtonView.swift */,
 				E731C9962C69901200FA53A1 /* LikeButtonsView.swift */,
 				E731C9982C6AC28E00FA53A1 /* CoutingsButtonsView.swift */,
@@ -228,6 +231,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E7123D1B2C6DD9DE0053DFF4 /* NetworkManager.swift in Sources */,
+				E788DC762C73A22400FF6783 /* UpdateUniversalUIElements.swift in Sources */,
 				E731C9972C69901200FA53A1 /* LikeButtonsView.swift in Sources */,
 				E78269F12C64EACA00041F4F /* ShopViewController.swift in Sources */,
 				E7826A022C64EC9000041F4F /* Colors.swift in Sources */,

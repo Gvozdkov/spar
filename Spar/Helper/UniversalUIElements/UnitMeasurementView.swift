@@ -10,6 +10,21 @@ import UIKit
 class UnitMeasurementView: UIView {
     private let universalUIElements = UniversalUIElements()
     
+    private var unit: Int = 1 {
+        didSet {
+            updateUnitUI()
+        }
+    }
+    
+    var unitMeasurement: Int {
+        get {
+            return unit
+        }
+        set {
+            unit = newValue
+        }
+    }
+    
     private lazy var containerView: UIView = {
         let view = UIView()
         view.backgroundColor = Colors.lightGrayButton
@@ -25,7 +40,6 @@ class UnitMeasurementView: UIView {
                                                     textColor: .black)
         label.clipsToBounds = true
         label.layer.cornerRadius = 8
-        label.backgroundColor = .white
         label.text = "Шт"
         label.textAlignment = .center
         return label
@@ -34,7 +48,7 @@ class UnitMeasurementView: UIView {
     private lazy var kilogramsLabel: UILabel = {
         let label = universalUIElements.createLabel(fontSize: 14,
                                                     weight: .regular,
-                                                    textColor: Colors.grayLine)
+                                                    textColor: .black)
         label.clipsToBounds = true
         label.layer.cornerRadius = 8
         label.text = "Кг"
@@ -59,7 +73,7 @@ class UnitMeasurementView: UIView {
         super.init(coder: coder)
     }
     
-    func constraintsSettingsView() {
+    private func constraintsSettingsView() {
         addSubview(containerView)
         containerView.addSubview(labelStack)
         
@@ -80,5 +94,13 @@ class UnitMeasurementView: UIView {
             kilogramsLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -2),
             kilogramsLabel.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -2),
         ])
+    }
+    
+    private func updateUnitUI() {
+        piecesLabel.backgroundColor = unit == 1 ? .white : .clear
+        piecesLabel.textColor = unit == 1 ? .black : Colors.grayLine
+        
+        kilogramsLabel.backgroundColor = unit == 1 ? .clear : .white
+        kilogramsLabel.textColor = unit == 1 ? Colors.grayLine : .black
     }
 }

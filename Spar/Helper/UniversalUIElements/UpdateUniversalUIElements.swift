@@ -24,8 +24,8 @@ class UpdateUniversalUIElements {
         }
     }
     
-    func updatePrice(newPriceIntegerLabel: UILabel, newPriceWholeLabel: UILabel, productPrice: Float) {
-        let priceComponents = String(format: "%.2f", productPrice).split(separator: ".")
+    func updatePrice(newPriceIntegerLabel: UILabel, newPriceWholeLabel: UILabel, discountedPrice: Float) {
+        let priceComponents = String(format: "%.2f", discountedPrice).split(separator: ".")
         
         if let integerPart = priceComponents.first, let fractionalPart = priceComponents.last {
             newPriceIntegerLabel.text = String(integerPart)
@@ -34,7 +34,7 @@ class UpdateUniversalUIElements {
     }
     
     func updateOldPriceLabel(oldPrice: Float, discountedPrice: Float, oldPriceLabel: UILabel) {
-        if oldPrice != 0 && oldPrice >= discountedPrice {
+        if oldPrice != 0 && oldPrice > discountedPrice {
             
             let formattedOldPrice = String(format: "%.2f", oldPrice)
             
@@ -51,10 +51,10 @@ class UpdateUniversalUIElements {
         }
     }
     
-    func updateUnitView(unitView: UIView, promotionalProduct: Int) {
+    func updateUnitView(unitView: UIView, unitMeasurement: Int) {
         var text = ""
-        
-        switch promotionalProduct {
+
+        switch unitMeasurement {
         case 1:
             text = "шт"
         case 2:
@@ -62,7 +62,7 @@ class UpdateUniversalUIElements {
         default:
             text = ""
         }
-        
+
         if let label = unitView.subviews.last as? UILabel {
             label.text = text
         }

@@ -8,12 +8,13 @@
 import UIKit
 
 class CoutingsButtonsView: UIView {
+    
     var productWeightText: String? {
         get {
             return productWeightLabel.text
         }
         set {
-            productWeightLabel.text = (newValue ?? "") + "кг"
+            productWeightLabel.text = newValue
         }
     }
     
@@ -83,7 +84,7 @@ class CoutingsButtonsView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         constraintsSettingsView()
-        productWeightLabel.text = "0.1 кг"
+//        productWeightLabel.text = "0.1 кг"
     }
     
     required init?(coder: NSCoder) {

@@ -16,8 +16,8 @@ final class GridCell: UICollectionViewCell {
     private let cartButtonView = CartButtonView()
     private let unitMeasurementView = UnitMeasurementView()
     private let coutingsButtonsView  = CoutingsButtonsView()
-    private var productWeight = 0.0
-    private var productCount = 0
+    private var productWeight: Float = 0.0
+    private var productCount: Int = 0
     private var itemTotalPrice: Float = 0.0
     private var itemPrice: Float = 0.0
     
@@ -97,7 +97,8 @@ final class GridCell: UICollectionViewCell {
         super.init(frame: frame)
         universalUIElements.setupCellAppearance(for: contentView)
         constraintsSettingsView()
-        setupActions()
+        setupShoppingListButtonAction()
+        setupLikeButtonAction()
         setupCartButtonActions()
         satupMinusButtonCoutingsButtonsView()
         satupPlusButtonCoutingsButtonsView()
@@ -217,7 +218,7 @@ final class GridCell: UICollectionViewCell {
         
         updateUniversalUIElements.updateDiscountLabel(discountPrice: product.discount,
                                                       discountLabel: discountLabel)
-
+        
         updateUniversalUIElements.updateRatingLabel(ratingLabel: ratingLabel,
                                                     ratingStack: ratingStack,
                                                     rating: product.rating)
@@ -229,13 +230,13 @@ final class GridCell: UICollectionViewCell {
         updateUniversalUIElements.updateOldPriceLabel(oldPrice: product.oldPrice,
                                                       discountedPrice: product.discountedPrice,
                                                       oldPriceLabel: oldPriceLabel)
-
+        
         updateUniversalUIElements.updatePromotionalView(promotionalView: promotionalView,
                                                         promotion: product.promotionalProduct)
     }
-
-    private func updateProductQuantity(isHidden: Bool, widthAnchor: CGFloat, heightAnchor: CGFloat) {
-        if productWeight <= 0.1, productCount <= 1 {
+    
+    private func updateUIForProductQuantity(isHidden: Bool, widthAnchor: CGFloat, heightAnchor: CGFloat) {
+        if productWeight < 0.1, productCount < 1 {
             cartButtonView.isHidden = isHidden
             newPriceIntegerLabel.isHidden = isHidden
             newPriceWholeLabel.isHidden = isHidden
@@ -249,48 +250,54 @@ final class GridCell: UICollectionViewCell {
         }
     }
     
+    private func updateProductQuantity(operation: String, isInitial: Bool = false) {
+        if isInitial && itemTotalPrice > 0 {
+            return
+        }
+
+        switch operation {
+        case "+":
+            itemTotalPrice += (unitMeasurementView.unitMeasurement == 1) ? itemPrice : itemPrice * 0.1
+            if unitMeasurementView.unitMeasurement == 1 {
+                productCount += 1
+            } else {
+                productWeight += 0.1
+                productWeight = round(productWeight * 10) / 10.0
+            }
+        case "-":
+            itemTotalPrice -= (unitMeasurementView.unitMeasurement == 1) ? itemPrice : itemPrice * 0.1
+            if unitMeasurementView.unitMeasurement == 1 {
+                productCount -= 1
+            } else {
+                productWeight -= 0.1
+                productWeight = round(productWeight * 10) / 10.0
+            }
+        default:
+            break
+        }
+        
+        coutingsButtonsView.priceLabelText = String(format: "%.2f", itemTotalPrice)
+        coutingsButtonsView.productWeightText = (unitMeasurementView.unitMeasurement == 1) ? "\(productCount) шт" : "\(productWeight) кг"
+    }
+
+    
     // MARK: - Actions Buttons
+    private func setupShoppingListButtonAction() {
+        likeButtonsView.shoppingListButtonAction = { [weak self] in
+            self?.shoppingListButton()
+        }
+    }
+    
+    private func setupLikeButtonAction() {
+        likeButtonsView.likeButtonAction = { [weak self] in
+            self?.likeButton()
+        }
+    }
+    
     private func setupCartButtonActions() {
         cartButtonView.cartButtonAction = { [weak self] in
             self?.cartButtonAction()
         }
-    }
-    
-    private func cartButtonAction() {
-        updateProductQuantity(isHidden: true,
-                              widthAnchor: 168,
-                              heightAnchor: 148)
-
-        if unitMeasurementView.unitMeasurement == 1 {
-            productCount += 1
-    
-            if productCount == 0 {
-                productCount = 1
-            }
-            
-            coutingsButtonsView.productWeightText = "\(productCount) шт"
-          } else if unitMeasurementView.unitMeasurement == 2 {  // шт
-              productWeight += 0.1
-              if productWeight != 0.1 {
-                  productWeight = 0.1
-              }
-              productWeight = round(productWeight * 10) / 10.0
-              coutingsButtonsView.productWeightText = "\(productWeight) кг"
-          }
-        itemTotalPrice += itemPrice
-        let roundedTotalPrice = String(format: "%.2f", itemTotalPrice)
-          coutingsButtonsView.priceLabelText = roundedTotalPrice
-    }
-    
-    //поменять нейменг
-    private func setupActions() {
-        likeButtonsView.likeButtonAction = { [weak self] in
-            self?.handleShoppingListButton()
-        }
-    }
-    
-    private func handleShoppingListButton() {
-        
     }
     
     private func satupMinusButtonCoutingsButtonsView() {
@@ -299,42 +306,38 @@ final class GridCell: UICollectionViewCell {
         }
     }
     
-    private func minusButtonAction() {
-        itemTotalPrice -= itemPrice
-        let roundedTotalPrice = String(format: "%.2f", itemTotalPrice)
-          coutingsButtonsView.priceLabelText = roundedTotalPrice
-        
-        updateProductQuantity(isHidden: false,
-                              widthAnchor: 168,
-                              heightAnchor: 168)
-        if unitMeasurementView.unitMeasurement == 1 {  // кг
-            productCount -= 1
-            coutingsButtonsView.productWeightText = "\(productCount) шт"
-          } else if unitMeasurementView.unitMeasurement == 2 {  // шт
-              productWeight -= 0.1
-              productWeight = round(productWeight * 10) / 10.0
-              coutingsButtonsView.productWeightText = "\(productWeight) кг"
-          }
-    }
-    
     private func satupPlusButtonCoutingsButtonsView() {
         coutingsButtonsView.plusButtonAction = { [weak self] in
             self?.plusButtonAction()
         }
     }
     
-    private func plusButtonAction() {
-        itemTotalPrice += itemPrice
-        let roundedTotalPrice = String(format: "%.2f", itemTotalPrice)
-          coutingsButtonsView.priceLabelText = roundedTotalPrice
+    private func shoppingListButton() {
+        print("shoppingListButton")
+    }
+    
+    private func likeButton() {
+        print("likeButton")
+    }
+    
+    private func cartButtonAction() {
+        updateUIForProductQuantity(isHidden: true,
+                                   widthAnchor: 168,
+                                   heightAnchor: 148)
+     
+        updateProductQuantity(operation: "+")
+    }
+    
+    private func minusButtonAction() {
+        updateProductQuantity(operation: "-")
         
-        if unitMeasurementView.unitMeasurement == 1 {
-            productCount += 1
-            coutingsButtonsView.productWeightText = "\(Int(productCount)) шт"
-          } else if unitMeasurementView.unitMeasurement == 2 {  // шт
-              productWeight += 0.1
-              productWeight = round(productWeight * 10) / 10.0
-              coutingsButtonsView.productWeightText = "\(productWeight) кг"
-          }
+        updateUIForProductQuantity(isHidden: false,
+                                   widthAnchor: 168,
+                                   heightAnchor: 168)
+        
+    }
+    
+    private func plusButtonAction() {
+        updateProductQuantity(operation: "+")
     }
 }

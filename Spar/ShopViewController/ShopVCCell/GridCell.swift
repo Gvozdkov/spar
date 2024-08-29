@@ -265,17 +265,14 @@ final class GridCell: UICollectionViewCell {
     private func updateUIForProductQuantity(isHidden: Bool, widthAnchor: CGFloat, heightAnchor: CGFloat) {
         guard productWeight < 0.1, productCount < 1 else { return }
         
-        updateVisibility(isHidden: isHidden)
-        
         if isHidden {
-            animateView.animateViewAppearance(unitView, coutingsButtonsView)
+            animateView.animateViewAppearance(unitMeasurementView, coutingsButtonsView)
+            self.updateVisibility(isHidden: true)
         } else {
-            animateView.animateViewDisappearance(unitMeasurementView, coutingsButtonsView) {
                 self.updateVisibility(isHidden: false)
-            }
         }
 
-        animateView.animatioinsImageProfuct(imageView: productImage, 
+        animateView.animatioinsImageProfuct(imageView: productImage,
                                             widthAnchor: widthAnchor,
                                             heightAnchor: heightAnchor)
     }

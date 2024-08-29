@@ -200,23 +200,4 @@ class UniversalUIElements {
         
         return view
     }
-
-    
-    func animatioinsProfuct(imageView: UIImageView, widthAnchor: CGFloat, heightAnchor: CGFloat) {
-        UIView.animate(withDuration: 0.5, animations: {
-            NSLayoutConstraint.deactivate(imageView.constraints.filter { $0.firstAttribute == .width || $0.firstAttribute == .height })
-            
-            NSLayoutConstraint.activate([
-                imageView.widthAnchor.constraint(equalToConstant: widthAnchor),
-                imageView.heightAnchor.constraint(equalToConstant: heightAnchor)
-            ])
-            imageView.superview?.layoutIfNeeded()
-        })
-        imageView.superview?.layoutIfNeeded()
-    }
-    
-    func maxLengthProductName(_ label: UILabel, _ text: String) {
-        let truncatedText = String(text.prefix(44))
-        label.text = truncatedText
-    }
 }

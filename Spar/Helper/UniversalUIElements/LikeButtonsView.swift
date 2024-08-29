@@ -82,13 +82,22 @@ class LikeButtonsView: UIView {
         ])
     }
     
+    private func updateImageButton(image: UIImageView) {
+        if image.tintColor == .darkGray {
+            image.tintColor = Colors.greenButton
+        } else {
+            image.tintColor = .darkGray
+        }
+    }
     
     @objc private func shoppingListButtonTapped() {
         shoppingListButtonAction?()
+        updateImageButton(image: shoppingListImage)
     }
     
     @objc private func likeButtonTapped() {
         likeButtonAction?()
+        updateImageButton(image: likeImage)
     }
     
     

@@ -26,6 +26,7 @@
 		E7826A042C65123100041F4F /* GridCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7826A032C65123100041F4F /* GridCell.swift */; };
 		E788DC762C73A22400FF6783 /* UpdateUniversalUIElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = E788DC752C73A22400FF6783 /* UpdateUniversalUIElements.swift */; };
 		E79E62F22C6EECB400ACB66C /* CartButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E79E62F12C6EECB400ACB66C /* CartButtonView.swift */; };
+		E7C432FA2C80D0270005B4A4 /* AnimateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C432F92C80D0270005B4A4 /* AnimateView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +49,7 @@
 		E7826A032C65123100041F4F /* GridCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridCell.swift; sourceTree = "<group>"; };
 		E788DC752C73A22400FF6783 /* UpdateUniversalUIElements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateUniversalUIElements.swift; sourceTree = "<group>"; };
 		E79E62F12C6EECB400ACB66C /* CartButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartButtonView.swift; sourceTree = "<group>"; };
+		E7C432F92C80D0270005B4A4 /* AnimateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimateView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +68,7 @@
 		E7123D0F2C6D31B10053DFF4 /* UniversalUIElements */ = {
 			isa = PBXGroup;
 			children = (
+				E7C432F92C80D0270005B4A4 /* AnimateView.swift */,
 				E731C9942C677FFD00FA53A1 /* UniversalUIElements.swift */,
 				E788DC752C73A22400FF6783 /* UpdateUniversalUIElements.swift */,
 				E79E62F12C6EECB400ACB66C /* CartButtonView.swift */,
@@ -236,6 +239,7 @@
 				E78269F12C64EACA00041F4F /* ShopViewController.swift in Sources */,
 				E7826A022C64EC9000041F4F /* Colors.swift in Sources */,
 				E78269ED2C64EACA00041F4F /* AppDelegate.swift in Sources */,
+				E7C432FA2C80D0270005B4A4 /* AnimateView.swift in Sources */,
 				E79E62F22C6EECB400ACB66C /* CartButtonView.swift in Sources */,
 				E7123D132C6D3C510053DFF4 /* ShopViewModel.swift in Sources */,
 				E7123D112C6D35370053DFF4 /* ProductModel.swift in Sources */,

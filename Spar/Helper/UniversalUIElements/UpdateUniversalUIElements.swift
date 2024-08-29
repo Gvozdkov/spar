@@ -92,4 +92,22 @@ class UpdateUniversalUIElements {
             promotionalView.isHidden = true
         }
     }
+    
+    func updateCountryOriginLabel(city: Int, label: UILabel) {
+        switch city {
+        case 1:
+            label.text = "Россия 🇷🇺"
+        case 2:
+            label.text = "Италия 🇮🇹"
+        case 3:
+            label.text = "Китай 🇨🇳"
+        default:
+            label.text = ""
+        }
+    }
+    
+    func maxLengthProductName(_ label: UILabel, _ text: String) {
+        let truncatedText = String(text.prefix(40))
+        label.text = truncatedText
+    }
 }

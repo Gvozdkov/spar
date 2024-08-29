@@ -12,6 +12,7 @@ final class GridCell: UICollectionViewCell {
     static let cellIdentifier = "GridCell"
     private let universalUIElements = UniversalUIElements()
     private let updateUniversalUIElements = UpdateUniversalUIElements()
+    private let animateView = AnimateView()
     private let likeButtonsView = LikeButtonsView()
     private let cartButtonView = CartButtonView()
     private let unitMeasurementView = UnitMeasurementView()
@@ -63,6 +64,13 @@ final class GridCell: UICollectionViewCell {
                                                     textColor: .black)
         label.sizeToFit()
         label.numberOfLines = 3
+        return label
+    }()
+    
+    private lazy var countryOriginLabel: UILabel = {
+        let label = universalUIElements.createLabel(fontSize: 12,
+                                                    weight: .regular,
+                                                    textColor: .gray)
         return label
     }()
     
@@ -131,6 +139,8 @@ final class GridCell: UICollectionViewCell {
         
         contentView.addSubview(promotionalView)
         contentView.addSubview(productNameLabel)
+        contentView.addSubview(countryOriginLabel)
+        contentView.addSubview(countryOriginLabel)
         contentView.addSubview(newPriceIntegerLabel)
         contentView.addSubview(newPriceWholeLabel)
         contentView.addSubview(unitView)
@@ -139,6 +149,7 @@ final class GridCell: UICollectionViewCell {
         contentView.addSubview(likeButtonsView)
         contentView.addSubview(unitMeasurementView)
         contentView.addSubview(coutingsButtonsView)
+    
         
         NSLayoutConstraint.activate([
             shadowContainerView.topAnchor.constraint(equalTo: topAnchor),
@@ -159,16 +170,19 @@ final class GridCell: UICollectionViewCell {
             promotionalView.widthAnchor.constraint(equalToConstant: 84),
             promotionalView.heightAnchor.constraint(equalToConstant: 16),
             
-            ratingStack.leadingAnchor.constraint(equalTo: productImage.leadingAnchor),
+            ratingStack.leadingAnchor.constraint(equalTo: productImage.leadingAnchor, constant: 4),
             ratingStack.bottomAnchor.constraint(equalTo: productImage.bottomAnchor),
             
-            discountLabel.trailingAnchor.constraint(equalTo: productImage.trailingAnchor),
+            discountLabel.trailingAnchor.constraint(equalTo: productImage.trailingAnchor, constant: -4),
             discountLabel.bottomAnchor.constraint(equalTo: productImage.bottomAnchor),
             
             productNameLabel.topAnchor.constraint(equalTo: productImage.bottomAnchor, constant: 8),
             productNameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
             productNameLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
-            productNameLabel.heightAnchor.constraint(equalToConstant: 58),
+            productNameLabel.heightAnchor.constraint(equalToConstant: 35),
+            
+            countryOriginLabel.topAnchor.constraint(equalTo: productNameLabel.bottomAnchor),
+            countryOriginLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
             
             newPriceIntegerLabel.topAnchor.constraint(equalTo: ratingImage.bottomAnchor, constant: 70),
             newPriceIntegerLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
@@ -209,10 +223,13 @@ final class GridCell: UICollectionViewCell {
             productImage.kf.setImage(with: imageURL)
         }
         
-        productNameLabel.text = product.name
+        updateUniversalUIElements.maxLengthProductName(productNameLabel, product.name)
+
         itemPrice = product.discountedPrice
         
         unitMeasurementView.unitMeasurement = product.unitMeasurement
+        
+        updateUniversalUIElements.updateCountryOriginLabel(city: product.countryOrigin, label: countryOriginLabel)
         
         updateUniversalUIElements.updateUnitView(unitView: unitView, unitMeasurement: product.unitMeasurement)
         
@@ -235,19 +252,32 @@ final class GridCell: UICollectionViewCell {
                                                         promotion: product.promotionalProduct)
     }
     
+    private func updateVisibility(isHidden: Bool) {
+        cartButtonView.isHidden = isHidden
+        newPriceIntegerLabel.isHidden = isHidden
+        newPriceWholeLabel.isHidden = isHidden
+        oldPriceLabel.isHidden = isHidden
+        unitView.isHidden = isHidden
+        unitMeasurementView.isHidden = !isHidden
+        coutingsButtonsView.isHidden = !isHidden
+    }
+
     private func updateUIForProductQuantity(isHidden: Bool, widthAnchor: CGFloat, heightAnchor: CGFloat) {
-        if productWeight < 0.1, productCount < 1 {
-            cartButtonView.isHidden = isHidden
-            newPriceIntegerLabel.isHidden = isHidden
-            newPriceWholeLabel.isHidden = isHidden
-            oldPriceLabel.isHidden = isHidden
-            unitView.isHidden = isHidden
-            unitMeasurementView.isHidden = !isHidden
-            coutingsButtonsView.isHidden = !isHidden
-            universalUIElements.animatioinsProfuct(imageView: productImage,
-                                                   widthAnchor: widthAnchor,
-                                                   heightAnchor: heightAnchor)
+        guard productWeight < 0.1, productCount < 1 else { return }
+        
+        updateVisibility(isHidden: isHidden)
+        
+        if isHidden {
+            animateView.animateViewAppearance(unitView, coutingsButtonsView)
+        } else {
+            animateView.animateViewDisappearance(unitMeasurementView, coutingsButtonsView) {
+                self.updateVisibility(isHidden: false)
+            }
         }
+
+        animateView.animatioinsImageProfuct(imageView: productImage, 
+                                            widthAnchor: widthAnchor,
+                                            heightAnchor: heightAnchor)
     }
     
     private func updateProductQuantity(operation: String, isInitial: Bool = false) {
@@ -334,7 +364,6 @@ final class GridCell: UICollectionViewCell {
         updateUIForProductQuantity(isHidden: false,
                                    widthAnchor: 168,
                                    heightAnchor: 168)
-        
     }
     
     private func plusButtonAction() {

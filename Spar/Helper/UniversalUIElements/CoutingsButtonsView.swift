@@ -84,7 +84,6 @@ class CoutingsButtonsView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         constraintsSettingsView()
-//        productWeightLabel.text = "0.1 кг"
     }
     
     required init?(coder: NSCoder) {

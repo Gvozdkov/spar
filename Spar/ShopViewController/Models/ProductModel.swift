@@ -10,7 +10,7 @@ import Foundation
 struct ProductModel: Decodable {
     let id: Int
     let name: String
-    let countryOrigin: String
+    let countryOrigin: Int
     let photo: String
     let rating: Float
     let comments: Int

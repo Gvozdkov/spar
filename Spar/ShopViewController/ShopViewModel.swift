@@ -8,10 +8,19 @@
 import Foundation
 
 final class ShopViewModelL {
-    var onDataLoaded: (() -> Void)?
-    
     private(set) var products = [ProductModel]()
     private var likeAndShoppingListProducts = [LikeAndShoppingListModel]()
+    private(set) var cellSwitch = true
+    var onDataLoaded: (() -> Void)?
+    
+    private func searchLikeAndShoppingList(id: Int) -> LikeAndShoppingListModel? {
+        for searchID in likeAndShoppingListProducts {
+            if searchID.id == id {
+                return searchID
+            }
+        }
+        return nil
+    }
     
     func fetchData() {
         guard let url = NetworkURL.mocProducts.url else {
@@ -39,17 +48,25 @@ final class ShopViewModelL {
         }
     }
     
-    func numbersOfItem() -> Int {
-        return products.count
+    func toggleButtonCollectionImage() -> String {
+        if cellSwitch {
+            return "buttonCollectionOne"
+        } else {
+            return "buttonCollectionTwo"
+        }
     }
     
-    private func searchLikeAndShoppingList(id: Int) -> LikeAndShoppingListModel? {
-        for searchID in likeAndShoppingListProducts {
-            if searchID.id == id {
-                return searchID
-            }
+    func toggleCellSwitch() {
+        cellSwitch.toggle()
+        onDataLoaded?()
+    }
+    
+    func sizeCell() -> CGSize {
+        if cellSwitch {
+            return  CGSize(width: 168, height: 278)
+        } else {
+            return  CGSize(width: 375, height: 176)
         }
-        return nil
     }
 }
 

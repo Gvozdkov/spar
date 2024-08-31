@@ -119,7 +119,6 @@ final class GridCell: UICollectionViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        
     }
     
     private func constraintsSettingsView() {

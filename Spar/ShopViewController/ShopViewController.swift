@@ -14,18 +14,19 @@ final class ShopViewController: UIViewController {
         let button = UIButton()
         button.layer.cornerRadius = 15
         button.backgroundColor = Colors.lightGrayButton
+        button.addTarget(self, action: #selector(buttonCollectionAction), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
-    private lazy var buttonCollecnionImage: UIImageView = {
+    private lazy var buttonCollectionImage: UIImageView = {
         let image = UIImageView()
         image.image = UIImage(named: "buttonCollectionOne")
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
     
-    private lazy var line: UIView = {
+    private lazy var lineView: UIView = {
         let view = UIView()
         view.backgroundColor = Colors.grayLine
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -34,15 +35,16 @@ final class ShopViewController: UIViewController {
     
     private lazy var shopCollection: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: 168, height: 278)
+        layout.itemSize = viewModel.sizeCell()
         layout.minimumLineSpacing = 5
         layout.minimumInteritemSpacing = 5
-
+        
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.isScrollEnabled = true
         collectionView.backgroundColor = .lightText
         collectionView.dataSource = self
         collectionView.register(GridCell.self, forCellWithReuseIdentifier: GridCell.cellIdentifier)
+        collectionView.register(ListCell.self, forCellWithReuseIdentifier: ListCell.cellIdentifier)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.delegate = self
         return collectionView
@@ -59,8 +61,8 @@ final class ShopViewController: UIViewController {
         view.backgroundColor = .white
         
         view.addSubview(buttonCollection)
-        buttonCollection.addSubview(buttonCollecnionImage)
-        view.addSubview(line)
+        buttonCollection.addSubview(buttonCollectionImage)
+        view.addSubview(lineView)
         view.addSubview(shopCollection)
         
         NSLayoutConstraint.activate([
@@ -69,19 +71,19 @@ final class ShopViewController: UIViewController {
             buttonCollection.heightAnchor.constraint(equalToConstant: 40),
             buttonCollection.widthAnchor.constraint(equalToConstant: 40),
             
-            buttonCollecnionImage.centerXAnchor.constraint(equalTo: buttonCollection.centerXAnchor),
-            buttonCollecnionImage.centerYAnchor.constraint(equalTo: buttonCollection.centerYAnchor),
-            buttonCollecnionImage.heightAnchor.constraint(equalToConstant: 18),
-            buttonCollecnionImage.widthAnchor.constraint(equalToConstant: 18),
+            buttonCollectionImage.centerXAnchor.constraint(equalTo: buttonCollection.centerXAnchor),
+            buttonCollectionImage.centerYAnchor.constraint(equalTo: buttonCollection.centerYAnchor),
+            buttonCollectionImage.heightAnchor.constraint(equalToConstant: 18),
+            buttonCollectionImage.widthAnchor.constraint(equalToConstant: 18),
             
-            line.topAnchor.constraint(equalTo: buttonCollection.bottomAnchor, constant: 3.5),
-            line.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            line.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            line.heightAnchor.constraint(equalToConstant: 0.5),
+            lineView.topAnchor.constraint(equalTo: buttonCollection.bottomAnchor, constant: 3.5),
+            lineView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            lineView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            lineView.heightAnchor.constraint(equalToConstant: 0.5),
             
-            shopCollection.topAnchor.constraint(equalTo: line.bottomAnchor),
-            shopCollection.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            shopCollection.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            shopCollection.topAnchor.constraint(equalTo: lineView.bottomAnchor),
+            shopCollection.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            shopCollection.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             shopCollection.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
@@ -93,7 +95,14 @@ final class ShopViewController: UIViewController {
             }
         }
     }
-    
+
+    @objc private func buttonCollectionAction() {
+        viewModel.toggleCellSwitch()
+        buttonCollectionImage.image = UIImage(named: viewModel.toggleButtonCollectionImage())
+        if let layout = shopCollection.collectionViewLayout as? UICollectionViewFlowLayout {
+            ShopCollectionViewLayoutManager.updateLayout(layout, with: viewModel.cellSwitch)
+        }
+    }
 }
 
 // MARK: - extension UICollectionViewDataSource
@@ -103,21 +112,27 @@ extension ShopViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GridCell.cellIdentifier, for: indexPath) as? GridCell {
+        let identifier = viewModel.cellSwitch ? GridCell.cellIdentifier : ListCell.cellIdentifier
+        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath)
+        
+        if let gridCell = cell as? GridCell {
             let product = viewModel.products[indexPath.item]
-            cell.cellUpdate(product: product)
-            return cell
+            gridCell.cellUpdate(product: product)
+            return gridCell
+        } else if let listCell = cell as? ListCell {
+            let product = viewModel.products[indexPath.item]
+            //            listCell.cellUpdate(product: product)
+            return listCell
         }
+        
         return UICollectionViewCell()
     }
-
+    
 }
 
 extension ShopViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        let totalCellWidth = 168 * 2
-        let totalSpacingWidth = 5
-        let leftInset = (collectionView.bounds.width - CGFloat(totalCellWidth + totalSpacingWidth)) / 2
-        return UIEdgeInsets(top: 9, left: leftInset, bottom: 8, right: leftInset)
+        return ShopCollectionViewLayoutManager.insets(for: viewModel.cellSwitch, collectionViewWidth: collectionView.bounds.width)
     }
 }
